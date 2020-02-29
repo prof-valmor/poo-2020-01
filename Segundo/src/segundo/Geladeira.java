@@ -20,6 +20,10 @@ public class Geladeira {
         congelador = new Congelador();
         
     }
+
+    void imprimirElementos() {
+       
+    }
     
     
     
