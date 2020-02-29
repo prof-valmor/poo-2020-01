@@ -10,5 +10,12 @@ package segundo;
  * @author udesc
  */
 class Refrigerador {
-    private Ventilador ventilador = new Ventilador();
+    protected Ventilador ventilador = new Ventilador();
+    private Sensor sensor = new Sensor();
+    
+    public void imprimirElementos() {
+         System.out.println("Sou o Refrigerador e contenho: ");
+        ventilador.imprimirNome();
+        sensor.imprimirNome();
+    }
 }

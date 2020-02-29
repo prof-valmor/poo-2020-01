@@ -20,6 +20,12 @@ public class Geladeira {
         congelador = new Congelador();
         
     }
+
+    public void imprimirElementos() {
+       System.out.println("Sou a Geladeira. Contenho:");
+       congelador.imprimirElementos();
+       refrigerador.imprimirElementos();
+    }
     
     
     
