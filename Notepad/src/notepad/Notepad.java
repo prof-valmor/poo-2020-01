@@ -35,18 +35,14 @@ public class Notepad extends JFrame{
         btCarregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               txtArea.setText("Os dados foram carregados com sucesso!");
-              //
-              Presenter.getInstance().criarObjetos();
+                txtArea.setText(Presenter.getInstance().carregarDados());
             }
         });
         btArmazenar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //
-               String valores = Presenter.getInstance().getAreas();
-               txtArea.setText("\n" + valores);
-               //.out.println("As areas sao: "+ valores);
+                Presenter.getInstance().armazenarTexto(txtArea.getText());
             }
         });
     }

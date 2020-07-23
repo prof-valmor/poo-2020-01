@@ -6,6 +6,7 @@
 package notepad.presenter;
 
 import java.util.ArrayList;
+import notepad.modelo.DataBase;
 import notepad.modelo.Quadrado;
 import notepad.modelo.Retangulo;
 
@@ -54,6 +55,14 @@ public class Presenter {
         }
         
         return areas;
+    }
+
+    public String carregarDados() {
+        return DataBase.getInstance().lerTodoOArquivoTexto("poo0001.txt");
+    }
+
+    public void armazenarTexto(String text) {
+        DataBase.getInstance().armazenarArquivoTexto("poo0001_01.txt", text);
     }
     
     
