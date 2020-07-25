@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mail;
+package mail.view;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author old_adam
+ * @author prof-valmor
  */
 public class Mail extends JFrame {
     
@@ -23,6 +23,7 @@ public class Mail extends JFrame {
 //        add(new JTextField("digite o nome."), BorderLayout.NORTH);
         add(new Inbox(), BorderLayout.CENTER);
         add(new Mensagem(), BorderLayout.SOUTH);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
     }
 
@@ -31,7 +32,7 @@ public class Mail extends JFrame {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        (new Mail()).show();
+        (new Mail()).setVisible(true);
     }
     
 }

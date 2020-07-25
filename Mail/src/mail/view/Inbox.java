@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mail;
+package mail.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,10 +13,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import mail.presenter.ListaDeMensagens;
 
 /**
- *
- * @author old_adam
+ * Esta classe faz parte de um app de troca de mensagens.
+ * Ela contem dois botoes e um JList para a listar as mensagens recebidas.
+ * @author prof-valmor
  */
 public class Inbox extends javax.swing.JPanel {
 
@@ -26,6 +28,7 @@ public class Inbox extends javax.swing.JPanel {
     public Inbox() {
         initComponents();
         setBackground(Color.yellow);
+        jList2.setListData(ListaDeMensagens.getInstance().getListaDeMensagens());
     }
 
     /**
@@ -55,11 +58,6 @@ public class Inbox extends javax.swing.JPanel {
         });
         add(jButton1, java.awt.BorderLayout.PAGE_START);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Mensagem do professor@mail.com", "Mensagem do hotmail.com", "Mensagem do prof@oprof.com.br" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jList2);
 
         add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -74,7 +72,7 @@ public class Inbox extends javax.swing.JPanel {
         dlg.add(new JTextArea("Mensagem"), BorderLayout.CENTER);
         dlg.add(new JButton("Enviar"), BorderLayout.SOUTH);
         dlg.pack();
-        dlg.show();
+        dlg.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mail;
+package mail.view;
+
+import mail.presenter.MensagemSelecionada;
 
 /**
- *
- * @author old_adam
+ * Este eh o Painel que vai apresentar o conteudo da mensagem selecionada da lista.
+ * @author prof-valmor
  */
 public class Mensagem extends javax.swing.JPanel {
 
@@ -16,6 +18,8 @@ public class Mensagem extends javax.swing.JPanel {
      */
     public Mensagem() {
         initComponents();
+        //Carregando o texto.
+        jTextArea1.setText(MensagemSelecionada.getInstance().getMensagemSelecionada());
     }
 
     /**
@@ -35,7 +39,6 @@ public class Mensagem extends javax.swing.JPanel {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Boa noite. \nSe tiver duvidas sobre a atividade, pfv entre em contato. \n\nObrigado.\n\n--prof.");
         jScrollPane1.setViewportView(jTextArea1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
