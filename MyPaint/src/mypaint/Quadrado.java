@@ -8,6 +8,7 @@ package mypaint;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Point;
 
 /**
  *
@@ -31,14 +32,23 @@ public class Quadrado extends Component{
         lastY = getY();
         super.setLocation(x, y); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setLocation(Point p) {
+        lastX = p.x;
+        lastY = p.y;
+        super.setLocation(p); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
     
     
     @Override
     public void paint(Graphics g) {
+        //Apaga o desenho anterior.
         g.setColor(Color.white);
         g.fillRect(lastX, lastY, getWidth(), getHeight());
-        //
+        // desenha na nova posicao.
         g.setColor(Color.red);
         g.fillRect(getX(), getY(), getWidth(), getHeight());
         System.out.println("PAINTING o compomente. x:" + getX() + " y: " + getY() + " w: " + getWidth() + " h: " + getHeight());

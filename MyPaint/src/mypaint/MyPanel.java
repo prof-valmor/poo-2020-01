@@ -31,6 +31,30 @@ public class MyPanel extends Canvas {
     public MyPanel() {
         super();
         
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                componenteSelecionado = null;
+                for(Component c : listaComponentes) {
+                    if(c.contains(e.getPoint())){
+                        componenteSelecionado = c;
+                        System.out.println("Selecting...");
+                    }
+                }
+            }    
+        });
+        
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if(componenteSelecionado != null) {
+                    componenteSelecionado.setLocation(e.getPoint());
+                    repaint();
+                    System.out.println("Dragging...");
+                }
+            }
+        });
+        
     }
 
     public void add(Component comp) {
@@ -39,8 +63,8 @@ public class MyPanel extends Canvas {
     }
 
     @Override
-    public void paintAll(Graphics g) {
-        super.paintAll(g); //To change body of generated methods, choose Tools | Templates.
+    public void paint(Graphics g) {
+        super.paint(g); //To change body of generated methods, choose Tools | Templates.
         for(Component c : listaComponentes) {
             c.paint(g);
         }
