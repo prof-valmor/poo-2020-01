@@ -7,6 +7,9 @@ package mypaint;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
@@ -30,6 +33,14 @@ public class Janela1 extends javax.swing.JFrame {
         painelDesenho.setSize(getWidth(), getHeight()-jPanel2.getHeight());
         painelDesenho.setBackground(Color.white);
         add(painelDesenho, BorderLayout.CENTER);
+        //
+        
+        btAddTriangulo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                painelDesenho.add(new Triangulo(new Point(50, 50), new Point(50,100), new Point(200,100)));
+            }
+        });
  
     }
 
