@@ -5,9 +5,15 @@
  */
 package chatclient;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,14 +114,30 @@ public class Cliente extends javax.swing.JFrame {
     private void btEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarActionPerformed
         if(socket != null) {
             String mensagem = txtMensagem.getText();
+            
             //
-            try{
-                OutputStreamWriter ow = new OutputStreamWriter(socket.getOutputStream());
-                ow.write(mensagem);
+            try{               
+                PrintStream ps = new PrintStream(socket.getOutputStream());
+                ps.println(mensagem);
+                //
                 
-                ow.close();
-                socket.close();
-                socket = null;
+                String feedback = new String();
+                System.out.println("antes de ler.");
+                //Reading back                     
+                try {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    Scanner reader = new Scanner(br);
+                    feedback = br.readLine();
+
+                    reader.close();
+                    socket.close();
+                    socket = null;
+                } catch (IOException ex) {
+                        Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                System.out.println("depois.");
+                txtMensagem.append("\n>>" + feedback);
+ 
             }
             catch(IOException e) {
                 System.out.println("Erro ao enviar msg: " + e.getMessage());
