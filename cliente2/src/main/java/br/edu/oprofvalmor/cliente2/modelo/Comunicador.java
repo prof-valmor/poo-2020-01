@@ -54,14 +54,12 @@ public class Comunicador {
                 socket = null;
                 //Chamar um observador/listener
                 for(ComunicadorListener observador : listaDeObservadores) {
-                    observador.onMessageArrive(feedback);
+                    observador.onMenssagemChegandoDoServidor(feedback);
                 }
                
             } catch (IOException ex) {
                     Logger.getLogger(Comunicador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
-            
+            }     
         }
         catch(IOException e) {
             System.out.println("Erro ao enviar msg: " + e.getMessage());

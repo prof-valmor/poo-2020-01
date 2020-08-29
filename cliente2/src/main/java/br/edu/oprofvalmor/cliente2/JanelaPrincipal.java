@@ -24,7 +24,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         //
         comunicador.addListener(new ComunicadorListener() {
             @Override
-            public void onMessageArrive(String message) {
+            public void onMenssagemChegandoDoServidor(String message) {
               txtOutput.setText(message);
             }
         });

@@ -5,11 +5,17 @@
  */
 package br.edu.oprofvalmor.cliente2.modelo;
 
+import java.util.List;
+
+
 /**
  *
+ * @author old_adam
  */
-public interface ComunicadorListener {
+public interface MensagemListener {
     
-    void onMenssagemChegandoDoServidor(String message);
+    void onListaDeUsuariosChegando(List<String> usuarios);
+    void onMensagemChegando(String remetente, String texto);
+    void onMensagemDeErroChegando(String motivo);
     
 }
