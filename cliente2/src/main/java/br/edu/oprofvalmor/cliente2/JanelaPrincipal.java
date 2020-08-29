@@ -7,6 +7,9 @@ package br.edu.oprofvalmor.cliente2;
 
 import br.edu.oprofvalmor.cliente2.modelo.Comunicador;
 import br.edu.oprofvalmor.cliente2.modelo.ComunicadorListener;
+import br.edu.oprofvalmor.cliente2.modelo.Interpretador;
+import br.edu.oprofvalmor.cliente2.modelo.MensagemListener;
+import java.util.List;
 
 /**
  *
@@ -15,6 +18,7 @@ import br.edu.oprofvalmor.cliente2.modelo.ComunicadorListener;
 public class JanelaPrincipal extends javax.swing.JFrame {
 
     Comunicador comunicador = new Comunicador();
+    Interpretador interpretador = Interpretador.getInstance();
     
     /**
      * Creates new form JanelaPrincipal
@@ -22,10 +26,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
         initComponents();
         //
-        comunicador.addListener(new ComunicadorListener() {
+        
+        comunicador.addListener(interpretador);
+        
+        interpretador.addObservador(new MensagemListener() {
             @Override
-            public void onMenssagemChegandoDoServidor(String message) {
-              txtOutput.setText(message);
+            public void onListaDeUsuariosChegando(List<String> usuarios) {
+                for(String usuario : usuarios) {
+                    txtOutput.setText(usuario);
+                }    
+            }
+
+            @Override
+            public void onMensagemChegando(String remetente, String texto) {
+                txtOutput.setText("Chegou: " + texto + " de " + remetente);
+            }
+
+            @Override
+            public void onMensagemDeErroChegando(String motivo) {
+                txtOutput.setText("Erro: " + motivo);
             }
         });
     }
