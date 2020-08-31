@@ -38,7 +38,14 @@ public class Interpretador implements ComunicadorListener {
     public void removeObservador(MensagemListener observador) {
         listaDeObservadores.remove(observador);
     }
+    /**
+     * Construtor.
+     */
+    public Interpretador() {
+       
+    }
 
+    
     /**
      * Tipos de mensagens:
      * { "online-users": [ "broadcast", "o.professor", "o.aluno", "outro.aluno", "mais.um.aluno" ] }
