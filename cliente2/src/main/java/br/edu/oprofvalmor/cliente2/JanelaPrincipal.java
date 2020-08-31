@@ -33,7 +33,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             @Override
             public void onListaDeUsuariosChegando(List<String> usuarios) {
                 for(String usuario : usuarios) {
-                    txtOutput.setText(usuario);
+                    txtOutput.append(usuario+"\n");
                 }    
             }
 
