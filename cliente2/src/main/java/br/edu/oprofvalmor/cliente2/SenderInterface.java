@@ -11,4 +11,6 @@ package br.edu.oprofvalmor.cliente2;
  */
 interface SenderInterface {
     public void enviarMensagem(String mensagem);
+
+    public void enviarMensagemDeLogin(String text);
 }

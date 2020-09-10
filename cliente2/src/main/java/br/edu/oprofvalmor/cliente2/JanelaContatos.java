@@ -13,22 +13,15 @@ import java.util.List;
  * @author old_adam
  */
 public class JanelaContatos extends javax.swing.JFrame {
-
+    Application app;
     /**
      * Creates new form JanelaContatos
      */
-    public JanelaContatos(List<String> usuarios) {
+    public JanelaContatos(Application app, List<String> usuarios) {
         initComponents();
-        //
-        String [] items = new String[usuarios.size()];
-        //
-        for(int i = 0; i < items.length; i++) {
-            items[i] = usuarios.get(i);
-        }
-        listaUsuarios.setListData(items);
+        setLista(usuarios);
         
-        //listaUsuarios.setListData(usuarios.toArray(new String [usuarios.size()]));
-
+        this.app = app;
     }
 
 
@@ -52,6 +45,11 @@ public class JanelaContatos extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        listaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                listaUsuariosMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaUsuarios);
 
         jLabel1.setText("Contatos:");
@@ -65,20 +63,28 @@ public class JanelaContatos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void listaUsuariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaUsuariosMouseReleased
+
+        String destinatario = listaUsuarios.getSelectedValue();
+        app.openMessage(destinatario);
+ 
+    }//GEN-LAST:event_listaUsuariosMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -86,4 +92,12 @@ public class JanelaContatos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaUsuarios;
     // End of variables declaration//GEN-END:variables
+
+    void setLista(List<String> usuarios) {
+        listaUsuarios.setListData(usuarios.toArray(new String [usuarios.size()]));
+    }
+
+    void marcarUsuario(String remetente) {
+        listaUsuarios.setSelectedValue(remetente, false);
+    }
 }
