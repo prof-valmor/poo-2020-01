@@ -1,5 +1,6 @@
 package br.edu.oprofvalmor.cliente2;
 
+import br.edu.oprofvalmor.cliente2.modelo.Usuario;
 import java.util.List;
 
 /*
@@ -22,6 +23,7 @@ public class JanelaContatos extends javax.swing.JFrame {
         setLista(usuarios);
         
         this.app = app;
+        setTitle(Usuario.getInstance().getUserId());
     }
 
 

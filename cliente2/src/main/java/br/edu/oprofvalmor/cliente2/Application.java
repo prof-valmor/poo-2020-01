@@ -5,11 +5,14 @@
  */
 package br.edu.oprofvalmor.cliente2;
 
+import br.edu.oprofvalmor.cliente2.modelo.Usuario;
 import br.edu.oprofvalmor.cliente2.modelo.Comunicador;
 import br.edu.oprofvalmor.cliente2.modelo.Interpretador;
 import br.edu.oprofvalmor.cliente2.modelo.MensagemListener;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Criamos a classe Application para ser o ponto de entrada do nosso projeto.
@@ -73,17 +76,17 @@ public class Application implements MensagemListener, SenderInterface {
 
     @Override
     public void enviarMensagem(String mensagem) {
-        comunicador.falaComOServidor(mensagem);
+        comunicador.enfileraMensagem(mensagem);
     }
 
-    // Aqui eh onde o projeto se inicia.
-    public static void main(String args[]) {
-        Application app = new Application();
-    }
-
-    void enviarMensagem(String user, String mensagem) {
-        //{ "message": { "sender":"o.professor", "receiver": "o.aluno", "content" : "uma mensagem inicial /success" } }
-        comunicador.falaComOServidor(mensagem);
+    void enviarMensagem(String destinatario, String texto) {
+        String header  = "{ \"message\": { \"sender\":\"";
+        String middle  = "\", \"receiver\": \""; 
+        String middle2 = "\", \"content\" : \"";
+        String tail    = "\" } }";
+        String mensagem = header + Usuario.getInstance().getUserId() + middle + destinatario + middle2 + texto + tail;
+        //
+        comunicador.enfileraMensagem(mensagem);
     }
 
     @Override
@@ -91,8 +94,32 @@ public class Application implements MensagemListener, SenderInterface {
         String header = "{ \"login\": { \"user-id\":\"";
         String tail   = "\" } }";
         String mensagem = header + userId + tail;
+        //Atualizando o id do Usuario.
+        Usuario.getInstance().setUserId(userId);
         //
-        comunicador.falaComOServidor(mensagem);
+        comunicador.enfileraMensagem(mensagem);
+        //
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                enviarMensagemDePing();
+            }
+        }, 0, 15000);
+    }
+    
+    private void enviarMensagemDePing() {
+        String header = "{ \"ping\": { \"user-id\":\""; 
+        String tail = "\" } }";
+        
+        String message = header + Usuario.getInstance().getUserId() + tail;
+        enviarMensagem(message);
+    }
+    
+    
+    // Aqui eh onde o projeto se inicia.
+    public static void main(String args[]) {
+        Application app = new Application();
     }
 
 }

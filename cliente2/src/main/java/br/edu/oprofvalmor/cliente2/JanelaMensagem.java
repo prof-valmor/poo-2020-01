@@ -97,7 +97,7 @@ public class JanelaMensagem extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void setMessages(String user, String mensagem) {
-        txtMensagems.append(">>User");
+        txtMensagems.append(">> " + user);
         txtMensagems.append(mensagem);
     }
 }
