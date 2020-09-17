@@ -5,11 +5,13 @@
  */
 package br.edu.oprofvalmor.cliente2.modelo;
 
+import com.google.gson.JsonSyntaxException;
+
 /**
  *
  */
 public interface ComunicadorListener {
     
-    void onMenssagemChegandoDoServidor(String message);
+    void onMenssagemChegandoDoServidor(String message) throws JsonSyntaxException;
     
 }

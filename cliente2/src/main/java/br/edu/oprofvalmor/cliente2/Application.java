@@ -67,6 +67,8 @@ public class Application implements MensagemListener, SenderInterface {
     public void onMensagemChegando(String remetente, String texto) {
            jc.marcarUsuario(remetente);
            mensagens.put(remetente, texto);
+           System.out.println("->" + texto);
+           
     }
 
     @Override
@@ -98,22 +100,6 @@ public class Application implements MensagemListener, SenderInterface {
         Usuario.getInstance().setUserId(userId);
         //
         comunicador.enfileraMensagem(mensagem);
-        //
-        Timer t = new Timer();
-        t.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                enviarMensagemDePing();
-            }
-        }, 0, 15000);
-    }
-    
-    private void enviarMensagemDePing() {
-        String header = "{ \"ping\": { \"user-id\":\""; 
-        String tail = "\" } }";
-        
-        String message = header + Usuario.getInstance().getUserId() + tail;
-        enviarMensagem(message);
     }
     
     

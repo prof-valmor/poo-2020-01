@@ -12,7 +12,7 @@ package br.edu.oprofvalmor.cliente2.modelo;
 public class Usuario {
     private static final Usuario instance = new Usuario();
     
-    private String userId;
+    private String userId = null;
     
     public static Usuario getInstance() {
         return instance;

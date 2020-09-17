@@ -5,6 +5,7 @@
  */
 package br.edu.oprofvalmor.cliente2.modelo;
 
+import com.google.gson.JsonSyntaxException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,13 +35,20 @@ public class Comunicador {
         taskComunicacao = new TimerTask() {
         @Override
             public void run() {
+                
                 if (filaDeMensagens.size() > 0) {
                     falaComOServidor(filaDeMensagens.get(0));
+                    filaDeMensagens.remove(0);
+                }
+                else {
+                    String msg = buildMensagemDePing();
+                    if(msg != null)
+                        falaComOServidor(msg);
                 }
             }
         };
         
-        timer.scheduleAtFixedRate(taskComunicacao, 0, 1000);
+        timer.scheduleAtFixedRate(taskComunicacao, 0, 10000);
     }
     
     public void addListener(ComunicadorListener observador) {
@@ -50,12 +58,28 @@ public class Comunicador {
     public void removeListener(ComunicadorListener observador) {
         listaDeObservadores.remove(observador);
     }
-    
+    /**
+     * 
+     * @param mensagem 
+     */
     public synchronized void enfileraMensagem(String mensagem) {
         filaDeMensagens.add(mensagem);
     }
+    /**
+     * Metodo que controe a mensagem de ping.
+     * @return 
+     */
+    private String buildMensagemDePing() {
+        String header = "{ \"ping\": { \"user-id\":\""; 
+        String tail = "\" } }";
+        
+        if(Usuario.getInstance().getUserId() != null)
+            return header + Usuario.getInstance().getUserId() + tail;
+        else
+            return null;
+    }
     
-    public void falaComOServidor(String mensagem) {
+    private void falaComOServidor(String mensagem) {
         try{  
             //abrindo o socket com o servidor.
             socket = new Socket("10.0.0.106", 1408);
@@ -77,7 +101,9 @@ public class Comunicador {
                 socket = null;
                 //Chamar um observador/listener
                 for(ComunicadorListener observador : listaDeObservadores) {
-                    observador.onMenssagemChegandoDoServidor(feedback);
+                    try{
+                        observador.onMenssagemChegandoDoServidor(feedback);
+                    } catch(JsonSyntaxException e) {}
                 }
                
             } catch (IOException ex) {

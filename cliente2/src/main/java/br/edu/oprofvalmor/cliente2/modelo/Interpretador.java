@@ -9,6 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -55,7 +56,7 @@ public class Interpretador implements ComunicadorListener {
      * @param message 
      */
     @Override
-    public void onMenssagemChegandoDoServidor(String message) {
+    public void onMenssagemChegandoDoServidor(String message) throws JsonSyntaxException {
         // transforma a mensagem para JsonObject para poder identificar qual mensagem chegou.
         JsonObject jsonObject = JsonParser.parseString(message).getAsJsonObject();
         // Se for uma mensagem de usuarios online...
