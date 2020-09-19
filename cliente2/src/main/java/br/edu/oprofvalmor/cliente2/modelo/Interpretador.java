@@ -92,5 +92,13 @@ public class Interpretador implements ComunicadorListener {
                 observador.onMensagemDeErroChegando(motivo);
             }
         }
+        else if(jsonObject.has("okay")) {
+            JsonObject okay = jsonObject.get("okay").getAsJsonObject();
+            String motivo = okay.get("message").getAsString();
+            // chamando os listeners.
+            for(MensagemListener observador : listaDeObservadores) {
+                observador.onMensagemDeOkayChegando(motivo);
+            }
+        }
     }   
 }

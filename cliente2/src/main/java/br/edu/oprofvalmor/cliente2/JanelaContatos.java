@@ -39,6 +39,7 @@ public class JanelaContatos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listaUsuarios = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        btSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +57,14 @@ public class JanelaContatos extends javax.swing.JFrame {
 
         jLabel1.setText("Contatos:");
 
+        btSair.setText("Sair");
+        btSair.setToolTipText("");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,9 +72,10 @@ public class JanelaContatos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btSair)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,7 +84,9 @@ public class JanelaContatos extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btSair)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -88,8 +100,14 @@ public class JanelaContatos extends javax.swing.JFrame {
  
     }//GEN-LAST:event_listaUsuariosMouseReleased
 
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        app.enviarMensagemDeLogout();
+        
+    }//GEN-LAST:event_btSairActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaUsuarios;
@@ -100,6 +118,6 @@ public class JanelaContatos extends javax.swing.JFrame {
     }
 
     void marcarUsuario(String remetente) {
-        listaUsuarios.setSelectedValue(remetente, false);
+        listaUsuarios.setSelectedValue(remetente, true);
     }
 }

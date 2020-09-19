@@ -48,7 +48,7 @@ public class Comunicador {
             }
         };
         
-        timer.scheduleAtFixedRate(taskComunicacao, 0, 10000);
+        timer.scheduleAtFixedRate(taskComunicacao, 0, 2000);
     }
     
     public void addListener(ComunicadorListener observador) {

@@ -86,6 +86,8 @@ public class JanelaMensagem extends javax.swing.JFrame {
             //
             app.enviarMensagem(user, mensagem);
         }
+        //Adicionar o texto a tela.
+        txtMensagems.append(">> me: " + mensagem + "\n");
     }//GEN-LAST:event_btEnviarActionPerformed
 
 
@@ -97,7 +99,11 @@ public class JanelaMensagem extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void setMessages(String user, String mensagem) {
-        txtMensagems.append(">> " + user);
-        txtMensagems.append(mensagem);
+        txtMensagems.append(">> " + user + ": " + mensagem + "\n");
+    }
+
+    void clear() {
+        txtMensagems.removeAll();
+        txtNovaMensagem.removeAll();
     }
 }

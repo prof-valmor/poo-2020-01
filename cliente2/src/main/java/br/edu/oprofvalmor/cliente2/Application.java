@@ -9,6 +9,7 @@ import br.edu.oprofvalmor.cliente2.modelo.Usuario;
 import br.edu.oprofvalmor.cliente2.modelo.Comunicador;
 import br.edu.oprofvalmor.cliente2.modelo.Interpretador;
 import br.edu.oprofvalmor.cliente2.modelo.MensagemListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
@@ -48,6 +49,7 @@ public class Application implements MensagemListener, SenderInterface {
     
         
     public void openMessage(String user) {
+        jm.clear();
         jm.setUsuario(user);
         jm.setTitle("Bate-papo com " + user);
         jm.setMessages(user, mensagens.get(user));
@@ -59,7 +61,9 @@ public class Application implements MensagemListener, SenderInterface {
         if(jc == null) jc = new JanelaContatos(this, usuarios);  // verificar se eh null senao cria o JanelaContatos.
         else jc.setLista(usuarios);
         
-        jc.setVisible(true);
+        if(!jm.isVisible()) {
+            jc.setVisible(true);
+        }
         jp.setVisible(false);
     }
 
@@ -68,12 +72,20 @@ public class Application implements MensagemListener, SenderInterface {
            jc.marcarUsuario(remetente);
            mensagens.put(remetente, texto);
            System.out.println("->" + texto);
+           jm.setMessages(remetente, texto);
            
     }
 
     @Override
     public void onMensagemDeErroChegando(String motivo) {
 
+    }
+    
+        @Override
+    public void onMensagemDeOkayChegando(String motivo) {
+        if(motivo.equalsIgnoreCase("logout")) {
+            System.exit(0);
+        }
     }
 
     @Override
@@ -91,6 +103,15 @@ public class Application implements MensagemListener, SenderInterface {
         comunicador.enfileraMensagem(mensagem);
     }
 
+     void enviarMensagemDeLogout() {
+        String header = "{ \"logout\": { \"user-id\":\"";
+        String tail   = "\" } }";
+        String mensagem = header + Usuario.getInstance().getUserId() + tail;
+        //
+        comunicador.enfileraMensagem(mensagem);
+    }
+     
+     
     @Override
     public void enviarMensagemDeLogin(String userId) {
         String header = "{ \"login\": { \"user-id\":\"";
@@ -107,5 +128,4 @@ public class Application implements MensagemListener, SenderInterface {
     public static void main(String args[]) {
         Application app = new Application();
     }
-
 }
